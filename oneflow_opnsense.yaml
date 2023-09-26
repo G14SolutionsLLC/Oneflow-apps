@@ -1,0 +1,268 @@
+openapi: 3.0.0
+info:
+  title: Oneflow_OPNsense
+  description: >-
+    Firewall:
+
+
+    Give users, developers and businesses a friendly, stable and transparent environment. Make OPNsense the most widely used open source security platform. The projects name is derived from open and sense and stands for: Open (source) makes sense.
+  version: "1.0"
+  x-logo: data:image/png;base64,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
+  contact:
+    email: support@shuffler.io
+    name: "@Anonymous Shuffle User"
+    url: https://twitter.com/shuffleio
+servers:
+  - url: https://192.168.11.1/api
+host: 192.168.11.1
+basePath: /api
+schemes:
+  - "https:"
+paths:
+  /firewall/filter/addRule:
+    post:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: oneflow_addRule
+      operationId: oneflow_addRule
+      description: adds a new rule
+      parameters:
+        - in: query
+          name: verify
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: body
+          name: body
+          multiline: true
+          description: Generated by shuffler.io OpenAPI
+          required: false
+          example: |
+            {"rule" :
+                                {
+                                "description": "rule_description",
+                                "source_net": "192.168.0.0/24",
+                                "protocol": "TCP",
+                               "destination_net": "10.0.0.0/24"
+                                }
+                           }
+          schema:
+            type: string
+      requestBody:
+        description: Generated by Shuffler.io
+        required: false
+        content:
+          example:
+            example: |
+              {"rule" :
+                                  {
+                                  "description": "rule_description",
+                                  "source_net": "192.168.0.0/24",
+                                  "protocol": "TCP",
+                                 "destination_net": "10.0.0.0/24"
+                                  }
+                             }
+  "/firewall/filter/delRule/{uuid}":
+    post:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: oneflow_delRule
+      operationId: oneflow_delRule
+      description: deletes an existing rule
+      parameters:
+        - in: query
+          name: verify
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: uuid
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: body
+          name: body
+          multiline: true
+          description: Generated by shuffler.io OpenAPI
+          required: false
+          example: ""
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        description: Generated by Shuffler.io
+        required: false
+        content:
+          example:
+            example: ""
+  /firewall/filter/getrule:
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: oneflow_getRule
+      operationId: oneflow_getRule
+      description: "Gets a firewall rule "
+      parameters:
+        - in: query
+          name: verify
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  "/firewall/filter/setRule/{uuid}":
+    post:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: oneflow_setRule
+      operationId: oneflow_setRule
+      description: "modifies the rule "
+      parameters:
+        - in: query
+          name: verify
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: uuid
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: body
+          name: body
+          multiline: true
+          description: Generated by shuffler.io OpenAPI
+          required: false
+          example: |-
+            {
+              "rule": 
+            {
+                "protocol": "TCP",
+                "source_net": "192.168.0.0/24",
+                "destination_net": "10.0.0.0/24", 
+                "description": "my_new"
+              }
+            }
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        description: Generated by Shuffler.io
+        required: false
+        content:
+          example:
+            example: |-
+              {
+                "rule": 
+              {
+                  "protocol": "TCP",
+                  "source_net": "192.168.0.0/24",
+                  "destination_net": "10.0.0.0/24", 
+                  "description": "my_new"
+                }
+              }
+  "/firewall/filter/toggleRule/{uuid}":
+    post:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: oneflow_toggleRule
+      operationId: oneflow_toggleRule
+      description: "togglerule : Enable or disable the rule "
+      parameters:
+        - in: query
+          name: verfify
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: uuid
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: body
+          name: body
+          multiline: true
+          description: Generated by shuffler.io OpenAPI
+          required: false
+          example: ""
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        description: Generated by Shuffler.io
+        required: false
+        content:
+          example:
+            example: ""
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

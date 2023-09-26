@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: WhatsApp
+  description: Sending messages
+  version: "1.0"
+  x-logo: data:image/png;base64,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
+  contact:
+    name: "@Anonymous OneFlow User"
+    url: https://twitter.com/shuffleio
+    email: support@shuffler.io
+  x-categories:
+    - Other
+servers:
+  - url: https://graph.facebook.com
+host: graph.facebook.com
+basePath: /
+schemes:
+  - "https:"
+paths:
+  /v17.0/123834577480164/messages:
+    post:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: >-
+                  {
+                      "messaging_product": "whatsapp",
+                      "contacts": [
+                          {
+                              "input": "919182564738",
+                              "wa_id": "919182564738"
+                          }
+                      ],
+                      "messages": [
+                          {
+                              "id": "wamid.HBgMOTE5MTgyNTY0NzM4FQIAERgSMjlDQTZCQ0IzRDAwREU1MTYxAA=="
+                          }
+                      ]
+                  }
+      summary: Send message
+      operationId: Send_message
+      description: To send messages
+      parameters:
+        - in: body
+          name: body
+          multiline: true
+          description: Generated by shuffler.io OpenAPI
+          required: false
+          example: >-
+            {
+                "to": "919182564738",
+                "messaging_product":"whatsapp",
+                "recipient_type": "individual",
+                "type": "template",
+                "template": {
+                    "language": {
+                        "policy": "deterministic",
+                        "code": "en_US"
+                    },
+                    "name": "information_template",
+                    "components": [
+                        {
+                            "type": "body",
+                            "parameters": [
+                                {
+                                    "type": "text",
+                                    "text": "${Blugenie_1.body.SystemInfo.Info.#.ComputerInfo_Domain}"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "${Blugenie_1.body.SystemInfo.Info.#.DomainInfo_DCName}"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "BluSapphire"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+          schema:
+            type: string
+        - in: header
+          name: Content-Type
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: Bearer
+            EAAOgEcJbpRsBOy9qYWaZCEDxdgL5GkBFKZA6RvnSTcwUW8iNCZBeezPZCurjYz23P7QupVRPFHcuWn9ojPQV4xwgZCOX0emsPQqBlmZCaiNpM1GZAlsSAFiuEs01gfrvuARvfgBQRM9WKCPX05Ckppr3F9rlY2ezJA07XbjcjSnpT6Lh5NOhrcqtT2C4wcven6w
+          schema:
+            type: string
+      requestBody:
+        description: Generated by Shuffler.io
+        required: false
+        content:
+          example:
+            example: >-
+              {
+                  "to": "919182564738",
+                  "messaging_product":"whatsapp",
+                  "recipient_type": "individual",
+                  "type": "template",
+                  "template": {
+                      "language": {
+                          "policy": "deterministic",
+                          "code": "en_US"
+                      },
+                      "name": "information_template",
+                      "components": [
+                          {
+                              "type": "body",
+                              "parameters": [
+                                  {
+                                      "type": "text",
+                                      "text": "${Blugenie_1.body.SystemInfo.Info.#.ComputerInfo_Domain}"
+                                  },
+                                  {
+                                      "type": "text",
+                                      "text": "${Blugenie_1.body.SystemInfo.Info.#.DomainInfo_DCName}"
+                                  },
+                                  {
+                                      "type": "text",
+                                      "text": "BluSapphire"
+                                  }
+                              ]
+                          }
+                      ]
+                  }
+              }
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: UUID
+tags:
+  - name: test

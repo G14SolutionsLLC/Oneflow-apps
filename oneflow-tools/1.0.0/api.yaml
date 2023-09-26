@@ -1,0 +1,814 @@
+---
+app_version: 1.0.0
+name: Oneflow Tools
+description: A tool app for Oneflow
+tags:
+  - Testing
+  - Oneflow
+categories:
+  - Testing
+  - Oneflow
+contact_info:
+  name: "Blusapphire"
+  url: https://blusapphire.com
+  email: dev@blusapphire.com
+actions:
+  - name: repeat_back_to_me
+    description: Repeats the call parameter
+    parameters:
+      - name: call
+        description: The message to repeat
+        required: true
+        multiline: true
+        example: "REPEATING: Hello world"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: router
+    description: Reroutes information between different nodes
+    returns:
+      schema:
+        type: string
+  - name: get_cache_value
+    description: Get a value saved to your organization in Oneflow
+    parameters:
+      - name: key
+        description: The key to get
+        required: true
+        multiline: false
+        example: "timestamp"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: set_cache_value
+    description: Set a value to be saved to your organization in Oneflow.
+    parameters:
+      - name: key
+        description: The key to set the value for
+        required: true
+        multiline: false
+        example: "timestamp"
+        schema:
+          type: string
+      - name: value
+        description: The value to set
+        required: true
+        multiline: true
+        example: "1621959545"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: send_sms_Oneflow
+    description: Send an SMS from Oneflow
+    parameters:
+      - name: apikey
+        description: Your https://Oneflowr.io organization apikey
+        multiline: false
+        example: "https://Oneflowr.io apikey"
+        required: true
+        schema:
+          type: string
+      - name: phone_numbers
+        description: The receivers of the SMS
+        multiline: false
+        example: "+4741323535,+8151023022"
+        required: true
+        schema:
+          type: string
+      - name: body
+        description: The SMS to add to the numbers
+        multiline: true
+        example: "This is an alert from Oneflow :)"
+        required: true
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: send_email_Oneflow
+    description: Send an email from Oneflow
+    parameters:
+      - name: apikey
+        description: Your https://Oneflowr.io organization apikey
+        multiline: false
+        example: "https://Oneflowr.io apikey"
+        required: true
+        schema:
+          type: string
+      - name: recipients
+        description: The recipients of the email
+        multiline: false
+        example: "test@example.com,frikky@Oneflowr.io"
+        required: true
+        schema:
+          type: string
+      - name: subject
+        description: The subject to use
+        multiline: false
+        example: "SOS this is an alert :o"
+        required: true
+        schema:
+          type: string
+      - name: body
+        description: The body to add to the email
+        multiline: true
+        example: "This is an email alert from Oneflowr.io :)"
+        required: true
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: filter_list
+    description: Takes a list and filters based on your data
+    skip_multicheck: true
+    parameters:
+      - name: input_list
+        description: The list to check
+        required: true
+        multiline: false
+        example: '[{"data": "1.2.3.4"}, {"data": "1.2.3.5"}]'
+        schema:
+          type: string
+      - name: field
+        description: The field to check
+        required: false
+        multiline: false
+        example: "data"
+        schema:
+          type: string
+      - name: check
+        description: Type of check
+        required: true
+        example: "equals"
+        options:
+          - equals
+          - 'larger than'
+          - 'less than'
+          - is empty
+          - contains
+          - contains any of
+          - starts with
+          - ends with
+          - field is unique
+          - files by extension
+        schema:
+          type: string
+      - name: value
+        description: The value to check with
+        required: false
+        multiline: false
+        example: "1.2.3.4"
+        schema:
+          type: string
+      - name: opposite
+        description: Whether to add or to NOT add
+        required: true
+        options:
+          - False
+          - True
+        multiline: false
+        example: "false"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  #- name: multi_list_filter
+  #  description: Takes a list and filters based on your data
+  #  skip_multicheck: true
+  #  parameters:
+  #    - name: input_list
+  #      description: The list to check
+  #      required: true
+  #      multiline: false
+  #      example: '[{"data": "1.2.3.4"}, {"data": "1.2.3.5"}]'
+  #      schema:
+  #        type: string
+  #    - name: field
+  #      description: The field to check
+  #      required: true
+  #      multiline: false
+  #      example: "data"
+  #      schema:
+  #        type: string
+  #    - name: check
+  #      description: Type of check
+  #      required: true
+  #      example: "equals,equals"
+  #      schema:
+  #        type: string
+  #    - name: value
+  #      description: The value to check with
+  #      required: true
+  #      multiline: false
+  #      example: "1.2.3.4"
+  #      schema:
+  #        type: string
+  #  returns:
+  #    schema:
+  #      type: string
+  - name: parse_ioc
+    description: Parse IOC's based on https://github.com/fhightower/ioc-finder
+    parameters:
+      - name: input_string
+        description: The string to check
+        required: true
+        multiline: true
+        example: "123ijq192.168.3.6kljqwiejs8 https://Oneflowr.io"
+        schema:
+          type: string
+      - name: input_type
+        description: The string to check
+        required: false
+        multiline: false
+        example: "md5s"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: parse_file_ioc
+    description: Parse IOC's based on https://github.com/fhightower/ioc-finder
+    parameters:
+      - name: file_ids
+        description: The Oneflow file to check
+        required: true
+        multiline: false
+        schema:
+          type: string
+      - name: input_type
+        description: The string to check
+        required: false
+        multiline: false
+        example: "md5s"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: translate_value
+    description: Takes a list of values and translates it in your input data
+    parameters:
+      - name: input_data
+        description: The input data to use
+        required: true
+        multiline: true
+        example: Hello this is an md5
+        schema:
+          type: string
+      - name: translate_from
+        description: The source items to look for
+        required: true
+        multiline: false
+        example: sha256,md5,sha1
+        schema:
+          type: string
+      - name: translate_to
+        description: The destination data to change to
+        required: true
+        multiline: true
+        example: hash
+        schema:
+          type: string
+      - name: else_value
+        description: The value to set if it DOESNT match. Default to nothing.
+        required: false
+        multiline: false
+        example:
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: map_value
+    description: Takes a mapping dictionary and translates the input data
+    parameters:
+      - name: input_data
+        description: The input data to use
+        required: true
+        multiline: true
+        example: $exec.field1
+        schema:
+          type: string
+      - name: mapping
+        description: The mapping dictionary
+        required: true
+        multiline: true
+        example: |
+          {
+            "Low": 1,
+            "Medium": 2,
+            "High": 3,
+          }
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: regex_replace
+    description: Replace all instances matching a regular expression
+    parameters:
+      - name: input_data
+        description: The input data to use
+        required: true
+        multiline: true
+        example: $exec.http_headers
+        schema:
+          type: string
+      - name: regex
+        description: Your regular expression
+        multiline: false
+        example: "(Content-\\w+): (.*)"
+        required: true
+        schema:
+          type: string
+      - name: replace_string
+        description: Replacement string (capture groups with \1 \2)
+        multiline: true
+        example: "Content header '\\1' = '\\2'"
+        required: false
+        schema:
+          type: string
+      - name: ignore_case
+        description: "Make regex case insensitive (Default: False)"
+        multiline: false
+        example: "False"
+        required: false
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: parse_list
+    description: Parses a list and returns it as a json object
+    parameters:
+      - name: items
+        description: List of items
+        required: true
+        multiline: true
+        example: Oneflowr.io,test.com,test.no
+        schema:
+          type: string
+      - name: splitter
+        description: The splitter to use
+        required: false
+        multiline: false
+        example: ","
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: execute_bash
+    description: Runs bash with the data inputted available (TBD)
+    parameters:
+      - name: code
+        description: The code to run
+        required: true
+        multiline: true
+        example: echo "Hello"
+        schema:
+          type: string
+      - name: Oneflow_input
+        description: Alternative data to add
+        required: false
+        multiline: true
+        example: '{"data": "Hello world"}'
+        schema:
+          type: string
+  - name: get_file_value
+    description: This function is made for reading file(s), printing their data
+    parameters:
+      - name: filedata
+        description: The files
+        required: true
+        multiline: true
+        example: "REPEATING: Hello world"
+        schema:
+          type: file
+    returns:
+      schema:
+        type: string
+  - name: download_remote_file
+    description: Downloads a file from a URL
+    parameters:
+      - name: url
+        description:
+        required: true
+        multiline: false
+        example: "https://secure.eicar.org/eicar.com.txt"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: get_file_meta
+    description: Gets the file meta
+    parameters:
+      - name: file_id
+        description:
+        required: true
+        multiline: false
+        example: ""
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: delete_file
+    description: Deletes a file based on ID
+    parameters:
+      - name: file_id
+        description:
+        required: true
+        multiline: false
+        example: "Some data to put in the file"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: extract_archive
+    description: Extract compressed files, return file ids
+    parameters:
+      - name: file_ids
+        description:
+        required: true
+        multiline: false
+        schema:
+          type: string
+      - name: fileformat
+        description:
+        required: true
+        multiline: false
+        options:
+          - zip
+          - rar
+          - 7zip
+          - tar
+          - tar.gz
+        schema:
+          type: string
+      - name: password
+        description:
+        required: false
+        multiline: false
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: inflate_archive
+    description: Compress files in archive, return archive's file id
+    parameters:
+      - name: file_ids
+        description:
+        required: true
+        multiline: true
+        schema:
+          type: string
+      - name: fileformat
+        description:
+        required: true
+        multiline: false
+        options:
+          - zip
+          - 7zip
+        schema:
+          type: string
+      - name: name
+        description:
+        required: false
+        multiline: false
+        schema:
+          type: string
+      - name: password
+        description:
+        required: false
+        multiline: false
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: xml_json_convertor
+    description: Converts xml to json and vice versa
+    parameters:
+      - name: convertto
+        required: true
+        multiline: false
+        options:
+          - json
+          - xml
+        schema:
+          type: string
+      - name: data
+        description:
+        required: true
+        multiline: false
+        example: 'xml data / json data'
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: date_to_epoch
+    description: Converts a date field with a given format to an epoch time
+    parameters:
+      - name: input_data
+        description: The input data to use
+        required: true
+        multiline: true
+        example: 2010-11-04T04:15:22.123Z
+        schema:
+          type: dict
+      - name: date_field
+        description: The field containing the date to parse
+        required: true
+        multiline: false
+        example: currentDateTime
+        schema:
+          type: string
+      - name: date_format
+        # yamllint disable-line rule:line-length
+        description: The datetime format of the field to parse (strftime format).
+        required: true
+        multiline: false
+        example: '%Y-%m-%dT%H:%M:%s.%f%Z'
+        schema:
+          type: string
+    returns:
+      schema:
+        type: dict
+  - name: compare_relative_date
+    # yamllint disable-line rule:line-length
+    description: Compares an input date to a relative date and returns a True/False result
+    parameters:
+      - name: input_data
+        description: The input data to use
+        required: true
+        multiline: true
+        example: 2010-11-04T04:15:22.123Z
+        schema:
+          type: string
+      - name: date_format
+        description: The format of the input date field  (strftime format)
+        required: true
+        multiline: false
+        example: '%Y-%m-%dT%H:%M:%S.%f%Z'
+        options:
+          - '%Y-%m-%dT%H:%M%z'
+          - '%Y-%m-%dT%H:%M:%SZ'
+          - '%Y-%m-%dT%H:%M:%S%Z'
+          - '%Y-%m-%dT%H:%M:%S%z'
+          - '%Y-%m-%dT%H:%M:%S.%f%z'
+          - '%Y-%m-%d'
+          - '%H:%M:%S'
+          - '%s'
+        schema:
+          type: string
+      - name: equality_test
+        description: How to compare the input date and offset date
+        required: true
+        multiline: false
+        example: '>'
+        options:
+          - '>'
+          - '<'
+          - '='
+          - '!='
+          - '>='
+          - '<='
+        schema:
+          type: string
+      - name: offset
+        description: Numeric offset from current time
+        required: true
+        multiline: false
+        example: 60
+        schema:
+          type: string
+      - name: units
+        description: The units of the provided value
+        required: true
+        multiline: false
+        example: 'seconds'
+        options:
+          - seconds
+          - minutes
+          - hours
+          - days
+        schema:
+          type: string
+      - name: direction
+        description: Whether the comparison should be in the past or future
+        required: true
+        multiline: false
+        example: 'ago'
+        options:
+          - ago
+          - ahead
+        schema:
+          type: string
+    returns:
+      schema:
+        type: strings
+  - name: add_list_to_list
+    description: Adds items of second list (list_two) to the first one (list_one)
+    parameters:
+      - name: list_one
+        description: The first list
+        multiline: true
+        example: "{'key': 'value'}"
+        required: true
+        schema:
+          type: string
+      - name: list_two
+        description: The second list to use
+        multiline: true
+        required: true
+        example: "{'key2': 'value2'}"
+        schema:
+          type: string
+  - name: merge_lists
+    description: Merges two lists of same type AND length.
+    parameters:
+      - name: list_one
+        description: The first list
+        multiline: true
+        example: "{'key': 'value'}"
+        required: true
+        schema:
+          type: string
+      - name: list_two
+        description: The second list to use
+        multiline: true
+        required: true
+        example: "{'key2': 'value2'}"
+        schema:
+          type: string
+      - name: set_field
+        description: If items in list 2 are strings, but first is JSON, sets the values to the specified key. Defaults to key "new_Oneflow_key"
+        required: false
+        example: "json_key"
+        schema:
+          type: string
+      - name: sort_key_list_one
+        description: Sort by this key before using list one for merging
+        required: false
+        example: "json_key"
+        schema:
+          type: string
+      - name: sort_key_list_two
+        description: Sort by this key before using list two for merging
+        required: false
+        example: "json_key"
+        schema:
+          type: string
+  - name: diff_lists
+    description: Diffs two lists of strings or integers and finds what's missing
+    parameters:
+      - name: list_one
+        description: The first list
+        multiline: true
+        example: "{'key': 'value'}"
+        required: true
+        schema:
+          type: string
+      - name: list_two
+        description: The second list to use
+        multiline: true
+        required: true
+        example: "{'key2': 'value2'}"
+        schema:
+          type: string
+  - name: delete_json_keys
+    description: Deletes keys in a json object
+    parameters:
+      - name: json_object
+        description: The object to edit
+        multiline: true
+        example: "{'key': 'value', 'key2': 'value2', 'key3': 'value3'}"
+        required: true
+        schema:
+          type: string
+      - name: keys
+        description: The key(s) to remove
+        multiline: true
+        required: true
+        example: "key, key3"
+        schema:
+          type: string
+  - name: convert_json_to_tags
+    description: Creates key:value pairs and
+    parameters:
+      - name: json_object
+        description: The object to make into a key:value pair
+        multiline: true
+        example: "{'key': 'value', 'key2': 'value2', 'key3': 'value3'}"
+        required: true
+        schema:
+          type: string
+      - name: split_value
+        description: The way to split the values. Defaults to comma.
+        multiline: false
+        required: false
+        example: ","
+        schema:
+          type: string
+      - name: include_key
+        description: Whether it should include the key or not
+        options:
+          - true
+          - false
+        schema:
+          type: string
+      - name: lowercase
+        description: Whether it should be lowercase or not
+        options:
+          - true
+          - false
+        schema:
+          type: string
+  - name: run_math_operation
+    description: Takes a math input and gives you the result
+    parameters:
+      - name: operation
+        description: The operation to perform
+        required: true
+        multiline: true
+        example: "5+10"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: escape_html
+    description: Performs HTML escaping on a field
+    parameters:
+      - name: input_data
+        description: The input data to use
+        required: true
+        multiline: true
+        example: $exec.field1
+        schema:
+          type: string
+      - name: field_name
+        description: The field to HTML escape
+        required: true
+        multiline: true
+        example: my_unsafe_field
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: base64_conversion
+    description: Encode or decode a Base64 string
+    parameters:
+      - name: string
+        description: string to process
+        multiline: true
+        example: "This is a string to be encoded"
+        required: true
+        schema:
+          type: string
+      - name: operation
+        description: Choose to encode or decode the string
+        example: "encode"
+        required: true
+        options:
+          - encode
+          - decode
+        schema:
+          type: string
+  - name: cidr_ip_match
+    description: Check if an IP is contained in a CIDR defined network
+    parameters:
+      - name: ip
+        description: IP to check
+        multiline: false
+        example: "1.1.1.1"
+        required: True
+        schema:
+          type: string
+      - name: networks
+        description: List of network in CIDR format
+        multiline: true
+        required: true
+        example: "['10.0.0.0/8', '192.168.10.0/24']"
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+
+# yamllint disable-line rule:line-length
+large_image:

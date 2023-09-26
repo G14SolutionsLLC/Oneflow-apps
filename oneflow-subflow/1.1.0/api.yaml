@@ -1,0 +1,102 @@
+app_version: 1.1.0
+name: Oneflow Subflow 
+description: The  Oneflow Subflow app
+tags:
+  - Trigger 
+categories:
+  - Trigger 
+contact_info:
+  name: "Blusapphire"
+  url: https://blusapphire.com
+  email: dev@blusapphire.com
+actions:
+  - name: run_subflow 
+    description: Executes a subflow
+    parameters:
+      - name: user_apikey 
+        description: The apikey to use
+        required: true
+        multiline: false 
+        example: "REPEATING: Hello world"
+        schema:
+          type: string
+      - name: workflow
+        description: The Workflow to execute
+        required: true
+        multiline: false 
+        example: "REPEATING: Hello world"
+        schema:
+          type: string
+      - name: execution_argument 
+        description: The execution_argument
+        required: true
+        multiline: true
+        example: "REPEATING: Hello world"
+        schema:
+          type: string
+      - name: startnode 
+        description: 
+        required: false 
+        multiline: false 
+        example: ""
+        schema:
+          type: string
+      - name: source_workflow
+        description: 
+        required: false 
+        multiline: false 
+        example: ""
+        schema:
+          type: string
+      - name: source_execution 
+        description:
+        required: false
+        multiline: false 
+        example: ""
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+  - name: run_userinput 
+    description: Stops a workflow and notifies the right people
+    parameters:
+      - name: user_apikey 
+        description: The apikey to connect back to the APIs
+        required: true 
+        multiline: false 
+        example: "apikey"
+        schema:
+          type: string
+      - name: sms 
+        description: The numbers to send an sms to 
+        required: false 
+        multiline: false 
+        example: "+474135212,+180241322"
+        schema:
+          type: string
+      - name: email 
+        description: The emails to send an email to
+        required: false 
+        multiline: false 
+        example: "example@Oneflowr.io,test@test.com"
+        schema:
+          type: string
+      - name: subflow 
+        description: The subflow IDs to start
+        required: false 
+        multiline: false 
+        example: "7944b41d-6200-4f28-8973-22ba52637bf0,4832b41d-6200-4f28-8973-22ba52637bf0"
+        schema:
+          type: string
+      - name: information 
+        description: The information to send to the targets
+        required: false 
+        multiline: true
+        example: "This is an argument using some liquid: {{ 1 + 2 }} "
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+large_image:
