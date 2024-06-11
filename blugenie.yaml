@@ -13,20 +13,20 @@ info:
   version: "1.0"
   x-logo: data:image/png;base64,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
   contact:
+    email: support@shuffler.io
     name: "@Anonymous Shuffle User"
     url: https://twitter.com/shuffleio
-    email: support@shuffler.io
   x-categories:
     - Network
 servers:
-  - url: http://172.173.231.43:16000
-host: 172.173.231.43:16000
+  - url: http://172.16.172.13:16000
+host: 172.16.172.13:16000
 basePath: /
 schemes:
   - "http:"
 paths:
-  "/api/v1/blugenie/job/stop/{Jobid}":
-    put:
+  /api/v1/Ping:
+    get:
       responses:
         default:
           description: default
@@ -35,22 +35,38 @@ paths:
               schema:
                 type: string
                 example: ""
-      summary: Stop BluGenie Job
-      operationId: Stop_BluGenie_Job
-      description: Process Artifact Request
+      summary: Ping Check
+      operationId: Ping_Check
+      description: Server Management
+      parameters:
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  "/api/v1/blugenie/job/buildreport/{Jobid}":
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Build BluGenie Report
+      operationId: Build_BluGenie_Report
+      description: Job Status
       parameters:
         - in: path
           name: Jobid
           description: Generated by shuffler.io OpenAPI
           required: true
-          schema:
-            type: string
-        - in: body
-          name: body
-          multiline: true
-          description: Generated by shuffler.io OpenAPI
-          required: false
-          example: ""
           schema:
             type: string
         - in: header
@@ -62,11 +78,139 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Generated by Shuffler.io
-        required: false
-        content:
-          example:
-            example: ""
+        content: {}
+  /api/v1/blugenie/job/deletealljobids:
+    delete:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Delete All Job IDs
+      operationId: Delete_All_Job_IDs
+      description: BluGenie Maintenance
+      parameters:
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  /api/v1/blugenie/job/killallrunningjobs:
+    delete:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Kill All Running Jobs
+      operationId: Kill_All_Running_Jobs
+      description: BluGenie Maintenance
+      parameters:
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  "/api/v1/blugenie/job/query/{Jobid}":
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Query Job Status
+      operationId: Query_Job_Status
+      description: Job Status
+      parameters:
+        - in: path
+          name: Jobid
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  /api/v1/blugenie/job/queryalljobids:
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Get All Job IDs
+      operationId: Get_All_Job_IDs
+      description: Job Status
+      parameters:
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  "/api/v1/blugenie/job/quickreport/{Jobid}":
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Build BluGenie Quick Report
+      operationId: Build_BluGenie_Quick_Report
+      description: Job Status
+      parameters:
+        - in: path
+          name: Jobid
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
   /api/v1/blugenie/job/run:
     post:
       responses:
@@ -127,7 +271,7 @@ paths:
                   "Win10Tst001"
                 ]
               }
-  /api/v1/restart:
+  "/api/v1/blugenie/job/stop/{Jobid}":
     put:
       responses:
         default:
@@ -137,10 +281,16 @@ paths:
               schema:
                 type: string
                 example: ""
-      summary: Restart Pod Server
-      operationId: Restart_Pod_Server
-      description: Server Management
+      summary: Stop BluGenie Job
+      operationId: Stop_BluGenie_Job
+      description: Process Artifact Request
       parameters:
+        - in: path
+          name: Jobid
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
         - in: body
           name: body
           multiline: true
@@ -163,7 +313,7 @@ paths:
         content:
           example:
             example: ""
-  /api/v1/heartbeat:
+  "/api/v1/blugenie/windows/pingclient/{Node}":
     get:
       responses:
         default:
@@ -173,9 +323,39 @@ paths:
               schema:
                 type: string
                 example: ""
-      summary: Health Check
-      operationId: Health_Check
-      description: Server Management
+      summary: Ping Client Node Use a comma to separate client nodes
+      operationId: Ping_Client_Node_Use_a_comma_to_separate_client_nodes
+      description: BlueGenie Server Side Processing
+      parameters:
+        - in: path
+          name: Node
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  /api/v1/blugenie/windows/process:
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Get Process
+      operationId: Get_Process
+      description: BluGenie Server Side Processing
       parameters:
         - in: header
           name: accept
@@ -187,7 +367,7 @@ paths:
             type: string
       requestBody:
         content: {}
-  /api/v1/Ping:
+  /api/v1/blugenie/windows/systeminfo:
     get:
       responses:
         default:
@@ -197,10 +377,64 @@ paths:
               schema:
                 type: string
                 example: ""
-      summary: Ping Check
-      operationId: Ping_Check
-      description: Server Management
+      summary: Get Systeminfo
+      operationId: Get_Systeminfo
+      description: BluGenie Server Side Processing
       parameters:
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  /api/v1/blugenie/windows/updates:
+    get:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Get Updates
+      operationId: Get_Updates
+      description: BluGenie Server Side Processing
+      parameters:
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  "/api/v1/blugenie/yara/deleterule/{rulename}":
+    delete:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Delete Yara Rule
+      operationId: Delete_Yara_Rule
+      description: Yara Management
+      parameters:
+        - in: path
+          name: rulename
+          description: Generated by shuffler.io OpenAPI
+          required: true
+          schema:
+            type: string
         - in: header
           name: accept
           multiline: false
@@ -313,8 +547,8 @@ paths:
             type: string
       requestBody:
         content: {}
-  "/api/v1/blugenie/yara/deleterule/{rulename}":
-    delete:
+  /api/v1/heartbeat:
+    get:
       responses:
         default:
           description: default
@@ -323,14 +557,40 @@ paths:
               schema:
                 type: string
                 example: ""
-      summary: Delete Yara Rule
-      operationId: Delete_Yara_Rule
-      description: Yara Management
+      summary: Health Check
+      operationId: Health_Check
+      description: Server Management
       parameters:
-        - in: path
-          name: rulename
+        - in: header
+          name: accept
+          multiline: false
+          description: Header generated by shuffler.io OpenAPI
+          required: false
+          example: "*/*"
+          schema:
+            type: string
+      requestBody:
+        content: {}
+  /api/v1/restart:
+    put:
+      responses:
+        default:
+          description: default
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ""
+      summary: Restart Pod Server
+      operationId: Restart_Pod_Server
+      description: Server Management
+      parameters:
+        - in: body
+          name: body
+          multiline: true
           description: Generated by shuffler.io OpenAPI
-          required: true
+          required: false
+          example: ""
           schema:
             type: string
         - in: header
@@ -342,271 +602,11 @@ paths:
           schema:
             type: string
       requestBody:
-        content: {}
-  "/api/v1/blugenie/job/buildreport/{Jobid}":
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Build BluGenie Report
-      operationId: Build_BluGenie_Report
-      description: Job Status
-      parameters:
-        - in: path
-          name: Jobid
-          description: Generated by shuffler.io OpenAPI
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  "/api/v1/blugenie/job/query/{Jobid}":
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Query Job Status
-      operationId: Query_Job_Status
-      description: Job Status
-      parameters:
-        - in: path
-          name: Jobid
-          description: Generated by shuffler.io OpenAPI
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  /api/v1/blugenie/job/queryalljobids:
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Get All Job IDs
-      operationId: Get_All_Job_IDs
-      description: Job Status
-      parameters:
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  "/api/v1/blugenie/job/quickreport/{Jobid}":
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Build BluGenie Quick Report
-      operationId: Build_BluGenie_Quick_Report
-      description: Job Status
-      parameters:
-        - in: path
-          name: Jobid
-          description: Generated by shuffler.io OpenAPI
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  "/api/v1/blugenie/windows/pingclient/{Node}":
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Ping Client Node Use a comma to separate client nodes
-      operationId: Ping_Client_Node_Use_a_comma_to_separate_client_nodes
-      description: BlueGenie Server Side Processing
-      parameters:
-        - in: path
-          name: Node
-          description: Generated by shuffler.io OpenAPI
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  /api/v1/blugenie/windows/process:
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Get Process
-      operationId: Get_Process
-      description: BluGenie Server Side Processing
-      parameters:
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  /api/v1/blugenie/windows/systeminfo:
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Get Systeminfo
-      operationId: Get_Systeminfo
-      description: BluGenie Server Side Processing
-      parameters:
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  /api/v1/blugenie/windows/updates:
-    get:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Get Updates
-      operationId: Get_Updates
-      description: BluGenie Server Side Processing
-      parameters:
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  /api/v1/blugenie/job/deletealljobids:
-    delete:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Delete All Job IDs
-      operationId: Delete_All_Job_IDs
-      description: BluGenie Maintenance
-      parameters:
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
-  /api/v1/blugenie/job/killallrunningjobs:
-    delete:
-      responses:
-        default:
-          description: default
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: ""
-      summary: Kill All Running Jobs
-      operationId: Kill_All_Running_Jobs
-      description: BluGenie Maintenance
-      parameters:
-        - in: header
-          name: accept
-          multiline: false
-          description: Header generated by shuffler.io OpenAPI
-          required: false
-          example: "*/*"
-          schema:
-            type: string
-      requestBody:
-        content: {}
+        description: Generated by Shuffler.io
+        required: false
+        content:
+          example:
+            example: ""
 components:
   securitySchemes:
     BasicAuth:
