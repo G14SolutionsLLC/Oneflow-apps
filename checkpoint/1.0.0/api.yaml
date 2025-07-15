@@ -355,7 +355,7 @@ actions:
         type: string
 
   - name: publish
-    description: publish all stages changes in the Check point session.
+    description: publish all staged changes in the Check point session.
     parameters:
       - name: ip_addr
         description: IP address or hostname of the check point management server
