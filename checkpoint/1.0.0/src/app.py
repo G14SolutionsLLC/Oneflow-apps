@@ -346,32 +346,83 @@ class CheckPoint(AppBase):
         self.logout(ip_addr, session_id)
         return response.json()
 
-    def add_hosts_to_group(self, ip_addr:str, user:str, password:str, name:str, members:list ,ssl_verify:str)->"json":
-        """Adds host to network group"""
+    # def add_hosts_to_group(self, ip_addr:str, user:str, password:str, name:str, members:list ,ssl_verify:str)->"json":
+    #     """Adds host to network group"""
 
-        url = f'https://{ip_addr}/web_api/set-group'
-        session_id = self.login(ip_addr, user, password)
+    #     url = f'https://{ip_addr}/web_api/set-group'
+    #     session_id = self.login(ip_addr, user, password)
+    #     if isinstance(members, str):
+    #         members = ast.literal_eval(members)
+
+    #     if ssl_verify.lower() == 'true':
+    #         ssl_verify = True
+    #     else:
+    #         ssl_verify = False
+
+    #     request_headers = {
+    #         'Content-Type' : 'application/json',
+    #         'X-chkp-sid': session_id
+    #         }
+    #     json_payload = {
+    #         'name': name,
+    #         'members': members
+    #         }
+
+    #     response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
+    #     self.publish(ip_addr,session_id)
+    #     self.logout(ip_addr, session_id)
+    #     return response.json()
+
+
+
+    def add_hosts_to_group(self, ip_addr: str, user: str, password: str, name: str, members: list, ssl_verify: str) -> "json":
+        """Adds only new hosts to a Check Point group, keeping existing ones intact."""
+
+        # Convert string list to list if needed
         if isinstance(members, str):
             members = ast.literal_eval(members)
 
-        if ssl_verify.lower() == 'true':
-            ssl_verify = True
-        else:
-            ssl_verify = False
+        ssl_verify = ssl_verify.lower() == 'true'
+
+        # Login to get session ID
+        session_id = self.login(ip_addr, user, password)
 
         request_headers = {
-            'Content-Type' : 'application/json',
+            'Content-Type': 'application/json',
             'X-chkp-sid': session_id
-            }
-        json_payload = {
-            'name': name,
-            'members': members
-            }
+        }
 
-        response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
-        self.publish(ip_addr,session_id)
+        # Step 1: Get existing group members
+        show_url = f'https://{ip_addr}/web_api/show-group'
+        show_payload = {'name': name}
+
+        show_response = requests.post(show_url, data=json.dumps(show_payload), headers=request_headers, verify=ssl_verify)
+
+        if show_response.status_code != 200:
+            self.logout(ip_addr, session_id)
+            return {"error": "Failed to fetch existing members", "response": show_response.text}
+
+        group_data = show_response.json()
+        existing_members = [member.get("name") for member in group_data.get("members", [])]
+
+        # Step 2: Combine unique members
+        combined_members = list(set(existing_members + members))
+
+        # Step 3: Update the group with combined members
+        set_url = f'https://{ip_addr}/web_api/set-group'
+        set_payload = {
+            'name': name,
+            'members': combined_members
+        }
+
+        set_response = requests.post(set_url, data=json.dumps(set_payload), headers=request_headers, verify=ssl_verify)
+
+        # Step 4: Publish changes and logout
+        self.publish(ip_addr, session_id)
         self.logout(ip_addr, session_id)
-        return response.json()
+
+        return set_response.json()
+
 
     def show_access_rulebase(self, ip_addr:str, user:str, password:str, name:str, ssl_verify:str)->"json":
         """Show access rulebase"""
