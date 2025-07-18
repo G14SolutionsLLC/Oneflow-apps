@@ -10,7 +10,7 @@ import ast
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
-# Some of the endpoints are not available for checkpoint version < R80.40 like show-policy-settings, add-objects-batch 
+# Some of the endpoints are not available for checkpoint version < R80.40 like show-policy-settings, add-objects-batch
 
 class CheckPoint(AppBase):
     __version__ = "1.0.0"
@@ -29,7 +29,7 @@ class CheckPoint(AppBase):
         """Returns session ID. to be used for authenticating requests"""
 
         url = f'https://{ip_addr}/web_api/login'
-        
+
         request_headers = {
             'Content-Type' : 'application/json'
             }
@@ -38,24 +38,24 @@ class CheckPoint(AppBase):
             }
 
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=False)
-        
+
         if not response.raise_for_status():
             return response.json()['sid']
-        
+
         return f'Login failed, status_code->{response.status_code}'
 
     def logout(self, ip_addr:str, session_id:str)->str:
         """logs out user"""
 
         url = f'https://{ip_addr}/web_api/logout'
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
 
         response = requests.post(url, headers=request_headers, data=json.dumps({}), verify=False)
-        print(f"logout -> {response.json()['message']}")   
+        print(f"logout -> {response.json()['message']}")
 
     def publish(self, ip_addr:str, session_id:str)->"json":
         url = f'https://{ip_addr}/web_api/publish'
@@ -65,32 +65,32 @@ class CheckPoint(AppBase):
             'X-chkp-sid': session_id
             }
 
-        # if session_uid:    
+        # if session_uid:
         #     json_payload = {
-        #         'uid': session_uid 
+        #         'uid': session_uid
         #         }
 
-        response = requests.post(url,data=json.dumps({}), headers=request_headers, verify=False)    
+        response = requests.post(url,data=json.dumps({}), headers=request_headers, verify=False)
         return response.json()
-        
+
     def list_packages(self, ip_addr:str, user:str, password:str, ssl_verify)->"json":
         url = f'https://{ip_addr}/web_api/show-packages'
         session_id = self.login(ip_addr, user, password)
-        
+
         if ssl_verify.lower() == 'true':
             ssl_verify = True
         else:
-            ssl_verify = False  
+            ssl_verify = False
 
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
-        
+
         response = requests.post(url, data=json.dumps({}), headers=request_headers, verify=ssl_verify)
         self.logout(ip_addr, session_id)
         return response.json()
-        
+
     def install_policy(self, ip_addr:str, user:str, password:str, policy_package:str, targets:str, ssl_verify)->"json":
         #allow user to input list elments seperated by ,
         # this action has lots of optional parameters, add those when building for shuffle https://sc1.checkpoint.com/documents/latest/APIs/index.html#web/install-policy~v1.8%20
@@ -103,22 +103,22 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
         json_payload = {
-            'policy-package': policy_package, 
+            'policy-package': policy_package,
             'targets' : targets
             }
 
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
         # Do we really need to publish changes after installing the policy??
         #self.publish(ip_addr,session_id)
-        self.logout(ip_addr, session_id)   
+        self.logout(ip_addr, session_id)
         return response.json()
-    
+
     def add_host(self, ip_addr:str, user:str, password:str, host_list:list, ssl_verify)->"json":
         """create host"""
         print(host_list," type-->",type(host_list))
@@ -132,40 +132,40 @@ class CheckPoint(AppBase):
 
         url = f'https://{ip_addr}/web_api/add-host'
         session_id = self.login(ip_addr, user, password)
-        
+
 
         if ssl_verify.lower() == 'true':
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
-        for host in host_list:        
+        for host in host_list:
             json_payload = {
-                'name': host, 
+                'name': host,
                 'ip-address' : host
                 }
             response = requests.post(url, data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
             if response.json().get('errors') == None and response.json().get('warnings') == None :
                 final_response["success"].append(response.json())
             else:
-                final_response['failed'].append(response.json())    
+                final_response['failed'].append(response.json())
 
         self.publish(ip_addr,session_id)
-        self.logout(ip_addr, session_id)   
+        self.logout(ip_addr, session_id)
         return final_response
-        
+
     def add_hosts_from_file(self, file_id:str, ip_addr:str, user:str, password:str, ssl_verify)->"json":
         ''' this function will read ips from text file (comma seperated)
             and make host in checkpoint for all of them '''
         # https://sc1.checkpoint.com/documents/latest/APIs/index.html#web/add-objects-batch~v1.8%20
-        
+
         # add-objects-batch requires R80.40+ ---  https://community.checkpoint.com/t5/API-CLI-Discussion/How-to-add-multiple-network-objects-easily-for-a-beginner/m-p/119214/highlight/true#M5870
         # gonna loop through all ips and make api call for each one of them.
-        
+
         file_data = self.get_file(file_id)
         hosts_data = file_data['data'].decode() # reading file data and loading them into list
         host_list =[str(i).strip() for i in hosts_data.split(',')]
@@ -177,21 +177,21 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
 
-        for host in host_list:    
+        for host in host_list:
             json_payload = {
-                'name': host, 
+                'name': host,
                 'ip-address' : host
                 }
             response = requests.post(url, data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
             if response.raise_for_status():
                 return {"status":"failed","message":response.text}
-            
+
         self.publish(ip_addr,session_id)
         self.logout(ip_addr, session_id)
         return {"message": "hosts added", "host_list": host_list }
@@ -206,7 +206,7 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
@@ -215,7 +215,7 @@ class CheckPoint(AppBase):
         response = requests.post(url, headers=request_headers,data=json.dumps({}), verify=ssl_verify)
         if not response.raise_for_status():
             return response.json()
-        
+
         return {"status_code" :response.status_code, "message": response.text}
 
     def delete_host(self, ip_addr:str, user:str, password:str, host_name:str, ssl_verify:str)->"json":
@@ -228,27 +228,27 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
         json_payload = {
             'name': host_name
-            }    
+            }
 
         response = requests.post(url, headers=request_headers,data=json.dumps(), verify=ssl_verify)
         if not response.raise_for_status():
             self.logout(ip_addr, session_id)
             return response.json()
-        
-        return {"status_code" :response.status_code, "message": response.text}    
+
+        return {"status_code" :response.status_code, "message": response.text}
 
     def show_access_rule(self, ip_addr:str, user:str, password:str, name:str, layer:str, ssl_verify)->"json":
         #https://sc1.checkpoint.com/documents/latest/APIs/index.html#web/show-access-rule~v1.8%20
         url = f'https://{ip_addr}/web_api/show-access-rule'
         session_id = self.login(ip_addr, user, password)
-        
+
         if ssl_verify.lower() == 'true':
             ssl_verify = True
         else:
@@ -260,14 +260,14 @@ class CheckPoint(AppBase):
             }
         json_payload = {
             'name': name,
-            'layer': layer 
+            'layer': layer
             }
-        
+
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, ssl_verify=verify)
         if not response.raise_for_status():
             self.logout(ip_addr, session_id)
             return response.json()
-        
+
         return {"status_code" :response.status_code, "message": response.text()}
 
     def add_access_rule(self, ip_addr:str, user:str, password:str, name:str, layer:str, position:str, ssl_verify)->"json":
@@ -280,14 +280,14 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
         json_payload = {
             'name':name,
-            'layer': host_name, 
+            'layer': host_name,
             'position' : host_ip
             }
 
@@ -305,7 +305,7 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
@@ -325,7 +325,7 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
@@ -334,44 +334,96 @@ class CheckPoint(AppBase):
         if members:
             json_payload = {
                 'name': name,
-                'members': members 
-                } 
+                'members': members
+                }
         else:
             json_payload = {
                 'name': name
-                }      
+                }
 
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
         self.publish(ip_addr,session_id)
         self.logout(ip_addr, session_id)
         return response.json()
 
-    def add_hosts_to_group(self, ip_addr:str, user:str, password:str, name:str, members:list ,ssl_verify:str)->"json":
-        """Adds host to network group"""
+    # def add_hosts_to_group(self, ip_addr:str, user:str, password:str, name:str, members:list ,ssl_verify:str)->"json":
+    #     """Adds host to network group"""
 
-        url = f'https://{ip_addr}/web_api/set-group'
-        session_id = self.login(ip_addr, user, password)
+    #     url = f'https://{ip_addr}/web_api/set-group'
+    #     session_id = self.login(ip_addr, user, password)
+    #     if isinstance(members, str):
+    #         members = ast.literal_eval(members)
+
+    #     if ssl_verify.lower() == 'true':
+    #         ssl_verify = True
+    #     else:
+    #         ssl_verify = False
+
+    #     request_headers = {
+    #         'Content-Type' : 'application/json',
+    #         'X-chkp-sid': session_id
+    #         }
+    #     json_payload = {
+    #         'name': name,
+    #         'members': members
+    #         }
+
+    #     response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
+    #     self.publish(ip_addr,session_id)
+    #     self.logout(ip_addr, session_id)
+    #     return response.json()
+
+    def add_hosts_to_group(self, ip_addr: str, user: str, password: str, name: str, members: list, ssl_verify: str) -> "json":
+        """Adds only new hosts to a Check Point group, keeping existing ones intact."""
+
+        # Convert string list to list
         if isinstance(members, str):
             members = ast.literal_eval(members)
 
-        if ssl_verify.lower() == 'true':
-            ssl_verify = True
-        else:
-            ssl_verify = False
-        
-        request_headers = {
-            'Content-Type' : 'application/json',
-            'X-chkp-sid': session_id
-            }
-        json_payload = {
-            'name': name,
-            'members': members 
-            }      
+        ssl_verify = ssl_verify.lower() == 'true'
 
-        response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
-        self.publish(ip_addr,session_id)
+        # Step 1: Login to get session ID
+        session_id = self.login(ip_addr, user, password)
+
+        headers = {
+            'Content-Type': 'application/json',
+            'X-chkp-sid': session_id
+        }
+
+        # Step 2: Get existing group members
+        show_url = f'https://{ip_addr}/web_api/show-group'
+        show_payload = {'name': name}
+
+        show_response = requests.post(show_url, data=json.dumps(show_payload), headers=headers, verify=ssl_verify)
+
+        if show_response.status_code != 200:
+            self.logout(ip_addr, session_id)
+            return {"error": "Failed to fetch existing members", "response": show_response.text}
+
+        group_data = show_response.json()
+        existing_members = [member.get("name") for member in group_data.get("members", [])]
+
+        # Step 3: Determine new members to add
+        new_members = [host for host in members if host not in existing_members]
+
+        if not new_members:
+            self.logout(ip_addr, session_id)
+            return {"message": "No new members to add. Group is already up to date."}
+
+        # Step 4: Add new members
+        set_url = f'https://{ip_addr}/web_api/set-group'
+        set_payload = {
+            'name': name,
+            'members.add': new_members
+        }
+
+        set_response = requests.post(set_url, data=json.dumps(set_payload), headers=headers, verify=ssl_verify)
+
+        # Step 5: Publish & logout
+        self.publish(ip_addr, session_id)
         self.logout(ip_addr, session_id)
-        return response.json()
+
+        return set_response.json()
 
     def show_access_rulebase(self, ip_addr:str, user:str, password:str, name:str, ssl_verify:str)->"json":
         """Show access rulebase"""
@@ -383,14 +435,14 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
         json_payload = {
             'name': name
-            }      
+            }
 
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
         self.publish(ip_addr,session_id)
@@ -409,7 +461,7 @@ class CheckPoint(AppBase):
             ssl_verify = True
         else:
             ssl_verify = False
-        
+
         request_headers = {
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
@@ -419,7 +471,7 @@ class CheckPoint(AppBase):
             'layer':layer,
             'action':action,
             'destination':destination
-            }      
+            }
 
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
         self.publish(ip_addr,session_id)
@@ -429,7 +481,7 @@ class CheckPoint(AppBase):
     def list_all_tasks(self, ip_addr:str, user:str, password:str, ssl_verify)->"json":
         url = f'https://{ip_addr}/web_api/show-tasks'
         session_id = self.login(ip_addr, user, password)
-        
+
         if ssl_verify.lower() == 'true':
             ssl_verify = True
         else:
@@ -439,15 +491,15 @@ class CheckPoint(AppBase):
             'Content-Type' : 'application/json',
             'X-chkp-sid': session_id
             }
-            
+
         response = requests.post(url,data=json.dumps({}), headers=request_headers, verify=ssl_verify)
         self.logout(ip_addr, session_id)
-        return response.json() 
+        return response.json()
 
     def get_task(self, ip_addr:str, user:str, password:str, task_id:str, ssl_verify)->"json":
         url = f'https://{ip_addr}/web_api/show-task'
         session_id = self.login(ip_addr, user, password)
-        
+
         if ssl_verify.lower() == 'true':
             ssl_verify = True
         else:
@@ -458,12 +510,12 @@ class CheckPoint(AppBase):
             'X-chkp-sid': session_id
             }
         json_payload = {
-            'task-id': task_id 
-            }    
-        
+            'task-id': task_id
+            }
+
         response = requests.post(url,data=json.dumps(json_payload), headers=request_headers, verify=ssl_verify)
         self.logout(ip_addr, session_id)
-        return response.json()                
+        return response.json()
 
 
 if __name__ == "__main__":
