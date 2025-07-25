@@ -7,14 +7,14 @@ import requests
 from walkoff_app_sdk.app_base import AppBase
 from urllib3.exceptions import InsecureRequestWarning
 import ast
-import logging
+# import logging
 
-# Configure logger once at the top of your module
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+# # Configure logger once at the top of your module
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(levelname)s - %(message)s'
+# )
+# logger = logging.getLogger(__name__)
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
@@ -129,7 +129,7 @@ class CheckPoint(AppBase):
 
     def add_host(self, ip_addr: str, user: str, password: str, host_list: list, ssl_verify) -> "json":
         """Create host"""
-        logger.info(f"Received host_list: {host_list} (type: {type(host_list)})")
+        # print(f"Received host_list: {host_list} (type: {type(host_list)})")
 
         final_response = {
             "success": [],
@@ -140,17 +140,17 @@ class CheckPoint(AppBase):
         if isinstance(host_list, str):
             try:
                 host_list = ast.literal_eval(host_list)
-                logger.debug("Converted host_list string to list")
+                # print("Converted host_list string to list")
             except Exception as e:
-                logger.error(f"Failed to parse host_list: {e}")
+                print(f"Failed to parse host_list: {e}")
                 return {"success": [], "failed": [f"Invalid host_list: {host_list}"]}
 
         url = f'https://{ip_addr}/web_api/add-host'
         session_id = self.login(ip_addr, user, password)
-        logger.info(f"Logged into {ip_addr} with session ID: {session_id}")
+        print(f"Logged into {ip_addr} with session ID: {session_id}")
 
         ssl_verify = ssl_verify.lower() == 'true'
-        logger.debug(f"SSL verification set to: {ssl_verify}")
+        print(f"SSL verification set to: {ssl_verify}")
 
         request_headers = {
             'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ class CheckPoint(AppBase):
                 'name': host,
                 'ip-address': host
             }
-            logger.info(f"Sending request to add host: {host}")
+            print(f"Sending request to add host: {host}")
 
             start_time = time.perf_counter()
 
@@ -176,30 +176,30 @@ class CheckPoint(AppBase):
                 response_json = response.json()
 
                 if response_json.get('errors') is None and response_json.get('warnings') is None:
-                    logger.info(f"Host {host} added successfully")
+                    print(f"Host {host} added successfully")
                     final_response["success"].append(response_json)
                 else:
-                    logger.warning(f"Host {host} added with warnings/errors: {response_json}")
+                    print(f"Host {host} added with warnings/errors: {response_json}")
                     final_response['failed'].append(response_json)
 
             except Exception as e:
-                logger.error(f"Request failed for host {host}: {e}")
+                print(f"Request failed for host {host}: {e}")
                 final_response['failed'].append({"host": host, "error": str(e)})
 
             end_time = time.perf_counter()
             duration = round(end_time - start_time, 2)
-            logger.info(f"Time taken to submit host {host}: {duration} seconds")
+            print(f"Time taken to submit host {host}: {duration} seconds")
 
             # Sleep for 60 seconds after each host
             if i != len(host_list):  # Skip sleep after last host
-                logger.info(f"Sleeping for 60 seconds before processing next host...")
+                print(f"Sleeping for 60 seconds before processing next host...")
                 time.sleep(60)
 
         self.publish(ip_addr, session_id)
-        logger.debug("Published session")
+        print("Published session")
 
         self.logout(ip_addr, session_id)
-        logger.info(f"Logged out from {ip_addr}")
+        print(f"Logged out from {ip_addr}")
 
         return final_response
 
@@ -423,25 +423,25 @@ class CheckPoint(AppBase):
     def add_hosts_to_group(self, ip_addr: str, user: str, password: str, name: str, members: list, ssl_verify: str) -> "json":
         """Adds only new hosts to a Check Point group, keeping existing ones intact."""
 
-        logger.info("[add_hosts_to_group] Received inputs - IP: %s, User: %s, Group Name: %s, SSL Verify: %s",
+        print("[add_hosts_to_group] Received inputs - IP: %s, User: %s, Group Name: %s, SSL Verify: %s",
                     ip_addr, user, name, ssl_verify)
-        logger.info("[add_hosts_to_group] Members: %s", members)
+        print("[add_hosts_to_group] Members: %s", members)
 
         if isinstance(members, str):
-            logger.info("[add_hosts_to_group] Converting members from string to list...")
+            print("[add_hosts_to_group] Converting members from string to list...")
             try:
                 members = ast.literal_eval(members)
             except Exception as e:
-                logger.error("[add_hosts_to_group] Failed to parse members list: %s", e)
+                print("[add_hosts_to_group] Failed to parse members list: %s", e)
                 return {"error": "Invalid members format"}
 
         ssl_verify = ssl_verify.lower() == 'true'
-        logger.info("[add_hosts_to_group] SSL verification set to: %s", ssl_verify)
+        print("[add_hosts_to_group] SSL verification set to: %s", ssl_verify)
 
         # Login to get session ID
-        logger.info("[add_hosts_to_group] Logging in to Check Point API...")
+        print("[add_hosts_to_group] Logging in to Check Point API...")
         session_id = self.login(ip_addr, user, password)
-        logger.info("[add_hosts_to_group] Session ID obtained: %s", session_id)
+        print("[add_hosts_to_group] Session ID obtained: %s", session_id)
 
         request_headers = {
             'Content-Type': 'application/json',
@@ -451,35 +451,35 @@ class CheckPoint(AppBase):
         # Step 1: Get existing group members
         show_url = f'https://{ip_addr}/web_api/show-group'
         show_payload = {'name': name}
-        logger.info("[add_hosts_to_group] Fetching existing members from group: %s", name)
+        print("[add_hosts_to_group] Fetching existing members from group: %s", name)
 
         show_response = requests.post(show_url, data=json.dumps(show_payload), headers=request_headers, verify=ssl_verify)
 
         if show_response.status_code != 200:
-            logger.error("[add_hosts_to_group] Failed to fetch group members: %s", show_response.text)
+            print("[add_hosts_to_group] Failed to fetch group members: %s", show_response.text)
             self.logout(ip_addr, session_id)
             return {"error": "Failed to fetch existing members", "response": show_response.text}
 
         group_data = show_response.json()
         existing_members = [member.get("name") for member in group_data.get("members", [])]
-        logger.info("[add_hosts_to_group] Existing members: %s", existing_members)
+        print("[add_hosts_to_group] Existing members: %s", existing_members)
 
         # Step 2: Combine unique members
         combined_members = list(set(existing_members + members))
-        logger.info("[add_hosts_to_group] Combined members to be updated: %s", combined_members)
+        print("[add_hosts_to_group] Combined members to be updated: %s", combined_members)
 
         # Step 3: Update the group
         set_url = f'https://{ip_addr}/web_api/set-group'
         set_payload = {'name': name, 'members': combined_members}
-        logger.info("[add_hosts_to_group] Sending updated members to Check Point API...")
+        print("[add_hosts_to_group] Sending updated members to Check Point API...")
 
         set_response = requests.post(set_url, data=json.dumps(set_payload), headers=request_headers, verify=ssl_verify)
-        logger.info("[add_hosts_to_group] Set group response: %s", set_response.text)
+        print("[add_hosts_to_group] Set group response: %s", set_response.text)
 
         # Step 4: Publish changes and logout
-        logger.info("[add_hosts_to_group] Publishing changes...")
+        print("[add_hosts_to_group] Publishing changes...")
         self.publish(ip_addr, session_id)
-        logger.info("[add_hosts_to_group] Logging out...")
+        print("[add_hosts_to_group] Logging out...")
         self.logout(ip_addr, session_id)
 
         return set_response.json()
