@@ -378,14 +378,21 @@ class CheckPoint(AppBase):
     def add_hosts_to_group(self, ip_addr: str, user: str, password: str, name: str, members: list, ssl_verify: str) -> "json":
         """Adds only new hosts to a Check Point group, keeping existing ones intact."""
 
+        print(f"[add_hosts_to_group] Received inputs - IP: {ip_addr}, User: {user}, Group Name: {name}, SSL Verify: {ssl_verify}")
+        print(f"[add_hosts_to_group] Members: {members}")
+
         # Convert string list to list if needed
         if isinstance(members, str):
+            print("[add_hosts_to_group] Converting members from string to list...")
             members = ast.literal_eval(members)
 
         ssl_verify = ssl_verify.lower() == 'true'
+        print(f"[add_hosts_to_group] SSL verification set to: {ssl_verify}")
 
         # Login to get session ID
+        print("[add_hosts_to_group] Logging in to Check Point API...")
         session_id = self.login(ip_addr, user, password)
+        print(f"[add_hosts_to_group] Session ID obtained: {session_id}")
 
         request_headers = {
             'Content-Type': 'application/json',
@@ -395,18 +402,22 @@ class CheckPoint(AppBase):
         # Step 1: Get existing group members
         show_url = f'https://{ip_addr}/web_api/show-group'
         show_payload = {'name': name}
+        print(f"[add_hosts_to_group] Fetching existing members from group: {name}")
 
         show_response = requests.post(show_url, data=json.dumps(show_payload), headers=request_headers, verify=ssl_verify)
 
         if show_response.status_code != 200:
+            print(f"[add_hosts_to_group] Failed to fetch group members: {show_response.text}")
             self.logout(ip_addr, session_id)
             return {"error": "Failed to fetch existing members", "response": show_response.text}
 
         group_data = show_response.json()
         existing_members = [member.get("name") for member in group_data.get("members", [])]
+        print(f"[add_hosts_to_group] Existing members: {existing_members}")
 
         # Step 2: Combine unique members
         combined_members = list(set(existing_members + members))
+        print(f"[add_hosts_to_group] Combined members to be updated: {combined_members}")
 
         # Step 3: Update the group with combined members
         set_url = f'https://{ip_addr}/web_api/set-group'
@@ -415,13 +426,19 @@ class CheckPoint(AppBase):
             'members': combined_members
         }
 
+        print(f"[add_hosts_to_group] Sending updated members to Check Point API...")
         set_response = requests.post(set_url, data=json.dumps(set_payload), headers=request_headers, verify=ssl_verify)
+        print(f"[add_hosts_to_group] Set group response: {set_response.text}")
 
         # Step 4: Publish changes and logout
+        print("[add_hosts_to_group] Publishing changes...")
         self.publish(ip_addr, session_id)
+        print("[add_hosts_to_group] Logging out...")
         self.logout(ip_addr, session_id)
 
         return set_response.json()
+
+
 
 
     def show_access_rulebase(self, ip_addr:str, user:str, password:str, name:str, ssl_verify:str)->"json":
