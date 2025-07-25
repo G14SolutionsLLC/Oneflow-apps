@@ -164,6 +164,8 @@ class CheckPoint(AppBase):
             }
             logger.info(f"Sending request to add host: {host}")
 
+            start_time = time.perf_counter()
+
             try:
                 response = requests.post(
                     url,
@@ -184,9 +186,13 @@ class CheckPoint(AppBase):
                 logger.error(f"Request failed for host {host}: {e}")
                 final_response['failed'].append({"host": host, "error": str(e)})
 
-            # Sleep for 1 minute after every 3 IPs (except at the end)
-            if i % 3 == 0 and i != len(host_list):
-                logger.info("Sleeping for 60 seconds after processing 3 IPs...")
+            end_time = time.perf_counter()
+            duration = round(end_time - start_time, 2)
+            logger.info(f"Time taken to submit host {host}: {duration} seconds")
+
+            # Sleep for 60 seconds after each host
+            if i != len(host_list):  # Skip sleep after last host
+                logger.info(f"Sleeping for 60 seconds before processing next host...")
                 time.sleep(60)
 
         self.publish(ip_addr, session_id)
