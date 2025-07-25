@@ -157,7 +157,7 @@ class CheckPoint(AppBase):
             'X-chkp-sid': session_id
         }
 
-        for host in host_list:
+        for i, host in enumerate(host_list, start=1):
             json_payload = {
                 'name': host,
                 'ip-address': host
@@ -183,6 +183,11 @@ class CheckPoint(AppBase):
             except Exception as e:
                 logger.error(f"Request failed for host {host}: {e}")
                 final_response['failed'].append({"host": host, "error": str(e)})
+
+            # Sleep for 1 minute after every 3 IPs (except at the end)
+            if i % 3 == 0 and i != len(host_list):
+                logger.info("Sleeping for 60 seconds after processing 3 IPs...")
+                time.sleep(60)
 
         self.publish(ip_addr, session_id)
         logger.debug("Published session")
